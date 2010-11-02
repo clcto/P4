@@ -21,6 +21,9 @@ class Light
       void SetLocationSpherical( 
          float theta, float phi, float radius = 1 );
 
+      void SetLocationRectangular(
+         GLfloat x, GLfloat y, GLfloat z );
+
    protected:
       GLenum light;
       GLfloat position[4];

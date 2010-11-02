@@ -52,3 +52,11 @@ void Light::SetLocationSpherical(
    position[2] =
       radius * sin( theta * TO_RAD );
 }
+
+void Light::SetLocationRectangular(
+               GLfloat x, GLfloat y, GLfloat z )
+{
+   position[0] = x;
+   position[1] = y;
+   position[2] = z;
+}
