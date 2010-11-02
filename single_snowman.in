@@ -1,0 +1,9 @@
+define snowman  SNOWMAN
+
+eye 100 0 0
+center 0 0 0 
+up 0 0 1
+
+ortho -3 3 -3 3 2 20
+frustum -5 5 -5 5 3 30
+perspective 5 1 1 1000
