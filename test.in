@@ -1,0 +1,31 @@
+a
+
+define cylinder cyl_1
+define cylinder cyl_2
+define cone     cone_1
+define sphere   sphere_1
+define snowman  SNOWMAN
+
+translate SNOWMAN -1 -1 0
+scale     SNOWMAN -1 1 2
+rotate    SNOWMAN 30 0 1 0
+color     SNOWMAN 1 0 0
+
+
+translate cyl_1 2 2 2
+scale     cyl_1 2 3 4
+rotate    cyl_1 0 1 1 1
+color     cyl_1 0 0 1
+
+translate cone_1 -2 -1 1
+scale     cone_1 0.2 2 1
+rotate    cone_1 30 0 1 1
+color     cone_1 1 .5 0
+
+eye 20 20 -10
+center 2 2 2 
+up 1 0 1
+
+ortho -3 3 -3 3 2 20
+frustum -5 5 -5 5 3 30
+perspective 20 1.4 1 100

@@ -1,0 +1,26 @@
+CS 770, Fall 2010
+Carick Wienke
+Assignment 3: 3D Graphics
+Due 2010.10.14
+
+Description:
+   This program uses wrappers for 3D solids and
+   'nested' solid to show a scene. The scene can be
+   modified by changing the camera parameters and changing
+   the shapes, similar to the way they were changed in P2
+
+Usage:
+   Commands:
+      define <type> <name>
+      translate <name> <tx> <ty> <tz>
+      scale <name> <sx> <sy> <sz>
+      rotate <name> <angle> <i> <j> <k>
+      color <name> <r> <g> <b>
+
+      type is one of the following:
+         cylinder, cone, disk, sphere, snowman
+
+
+Known Issues:
+   Specifying two shapes with the same name
+   will cause unexpected behavior
