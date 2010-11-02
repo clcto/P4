@@ -14,6 +14,7 @@
 
 #include "Shape.h"
 #include "Camera.h"
+#include "Light.h"
 
 using std::vector;
 using std::string;
@@ -32,6 +33,8 @@ class Scene
       Shape* GetShape( string name );
       void ReadFile( string );
       bool Save( string );
+
+      ~Scene();
 
    private:
       Scene();
@@ -57,6 +60,8 @@ class Scene
       uint selectedIndex;
 
       static Scene* instance;
+
+      Light* directionalLight;
 };
 
 vector<string> tokenize( const string& input,

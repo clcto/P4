@@ -47,11 +47,7 @@ void appInit(void)
    glEnable( GL_COLOR_MATERIAL );
    glEnable( GL_LIGHT0 );
 
-   GLfloat ambient[] = { 0.7, 0.7, 0.7, 1 };
-   glLightModelfv( GL_LIGHT_MODEL_AMBIENT, ambient );
    
-   //glLightfv( GL_LIGHT0, GL_POSITION, pos );
-
    glShadeModel( GL_SMOOTH );
 
       // background color: white

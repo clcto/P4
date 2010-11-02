@@ -45,6 +45,21 @@ Scene* Scene::Instance()
 Scene::Scene() 
 {
    selected = false;
+
+   GLfloat pos[4] = { 1, 0, 0, 0 };
+   directionalLight = new Light( GL_LIGHT0, pos );
+}
+
+Scene::~Scene()
+{
+   while( !shapes.empty() )
+   {
+      delete shapes.back();
+      shapes.pop_back();
+   }
+
+   delete directionalLight;
+
 }
 
    // -----------------------------------------------------
@@ -52,9 +67,10 @@ Scene::Scene()
    //    draw the scene again, boxing selected
 void Scene::Redraw()
 {
+   GLfloat ambient[] = { 0.4, 0.4, 0.4, 1 };
+   glLightModelfv( GL_LIGHT_MODEL_AMBIENT, ambient );
+   directionalLight->GLInit();
    camera.SetUpGLMatrices();
-   GLfloat pos[4] = {1, 1, 1, 0};
-   glLightfv( GL_LIGHT0, GL_POSITION, pos );
 
    vector<Shape*>::iterator it;
    
