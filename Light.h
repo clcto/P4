@@ -7,6 +7,7 @@
 // --------------------------------------------------------
 
 #include "GLPoint.h"
+#include "Color.h"
 
 class Light
 {
@@ -29,6 +30,10 @@ class Light
       float GetRadius();
 
       GLPoint GetLocation();
+
+      void SetColor( float, float, float );
+
+      Color GetColor() const;
 
       bool IsOn();
 

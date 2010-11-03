@@ -216,6 +216,11 @@ void Control::LoadValues()
    pnt_x->set_float_val( p.x );
    pnt_y->set_float_val( p.y );
    pnt_z->set_float_val( p.z );
+
+   Color c = s->GetPointLight()->GetColor();
+   redControl->set_float_val( c.red );
+   greenControl->set_float_val( c.green );
+   blueControl->set_float_val( c.blue );
 }
 
    // -----------------------------------------------------
@@ -269,6 +274,11 @@ void Control::modified( int control )
             pnt_x->get_float_val(),
             pnt_y->get_float_val(),
             pnt_z->get_float_val() );
+
+         l->SetColor(
+            redControl->get_float_val(),
+            greenControl->get_float_val(),
+            blueControl->get_float_val() );
          
          if( pnt_enable->get_int_val() )
             l->Enable();
@@ -378,4 +388,22 @@ void Control::createPoint()
       Modified_Point, modified_cb );
    pnt_z->set_float_limits( -300, 300 );
    pnt_z->set_speed( .2 );
+
+   redControl = new GLUI_Spinner( 
+      panel, "Red", GLUI_SPINNER_FLOAT, NULL, 
+      Modified_Point, modified_cb );
+   redControl->set_float_limits( 0, 1 );
+   redControl->set_speed( 1 );
+
+   greenControl = new GLUI_Spinner( 
+      panel, "Green", GLUI_SPINNER_FLOAT, NULL, 
+      Modified_Point, modified_cb );
+   greenControl->set_float_limits( 0, 1 );
+   greenControl->set_speed( 1 );
+
+   blueControl = new GLUI_Spinner( 
+      panel, "Blue", GLUI_SPINNER_FLOAT, NULL, 
+      Modified_Point, modified_cb );
+   blueControl->set_float_limits( 0, 1 );
+   blueControl->set_speed( 1 );
 }

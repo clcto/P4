@@ -35,7 +35,6 @@ void Light::GLInit()
       glPushMatrix();
       glEnable( light );
       glLightfv( light, GL_POSITION, position );
-      //glLightfv( light, GL_AMBIENT, ambient );
       glLightfv( light, GL_DIFFUSE, diffuse );
       glPopMatrix();
    }
@@ -62,6 +61,13 @@ void Light::SetLocationRectangular(
    position[2] = z;
 }
 
+void Light::SetColor( float r, float g, float b )
+{
+   diffuse[0] = r;
+   diffuse[1] = g;
+   diffuse[2] = b;
+}
+
 float Light::GetRadius()
 {
    return sqrt( pow( position[0], 2 ) +
@@ -85,6 +91,12 @@ GLPoint Light::GetLocation()
                  position[1],
                  position[2] };
    return p;
+}
+
+Color Light::GetColor() const
+{
+   Color c = { diffuse[0], diffuse[1], diffuse[2] };
+   return c;
 }
 
 bool Light::IsOn()
