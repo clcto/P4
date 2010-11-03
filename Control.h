@@ -27,7 +27,7 @@ class Control
          // graphics window
       void Initialize( string name, int windowID );
 
-      void LoadValues( const Camera& c );
+      void LoadValues();
 
       void SelectionChanged( const uint& );
 
@@ -40,14 +40,17 @@ class Control
       
          // callback instance method
       void modified( int );
-
-      void createTransformations();
+      
+      void createCamera();
+      void createDirectional();
+      void createPoint();
       void createColor();
       
          // enum determining which value changed
       enum ModifiedControl
       {
          Modified_Directional,
+         Modified_Point,
          Modified_Camera,
 
 
@@ -86,55 +89,7 @@ class Control
 
         // Point light properties 
       GLUI_Checkbox *pnt_enable;
-
-
-
-
-      GLUI_Panel * lookAtPanel;
-      GLUI_Panel * orthoFrustumPanel;
-      GLUI_Panel * perspectivePanel;
-
-      GLUI_Spinner * eyeX;
-      GLUI_Spinner * eyeY;
-      GLUI_Spinner * eyeZ;
-
-      GLUI_Spinner * centerX;
-      GLUI_Spinner * centerY;
-      GLUI_Spinner * centerZ;
-
-      GLUI_Spinner * upX;
-      GLUI_Spinner * upY;
-      GLUI_Spinner * upZ;
-
-      GLUI_RadioGroup * mode;
-      GLUI_RadioButton * ortho;
-      GLUI_RadioButton * perspective;
-      GLUI_RadioButton * frustum;
-      
-      GLUI_Spinner *right,
-                   *left,
-                   *top,
-                   *bottom,
-                   *ofNear,
-                   *ofFar;
-
-      GLUI_Spinner *fov,
-                   *aspect,
-                   *pNear,
-                   *pFar;
-
-      GLUI_Spinner *angleControl;
-      GLUI_Spinner *rotateVectorX;
-      GLUI_Spinner *rotateVectorY;
-      GLUI_Spinner *rotateVectorZ;
-
-      GLUI_Spinner *xTransControl;
-      GLUI_Spinner *yTransControl;
-      GLUI_Spinner *zTransControl;
-
-      GLUI_Spinner *xScaleControl;
-      GLUI_Spinner *yScaleControl;
-      GLUI_Spinner *zScaleControl;
+      GLUI_Spinner *pnt_x, *pnt_y, *pnt_z;
 
       GLUI_Listbox *selectionControl;
       

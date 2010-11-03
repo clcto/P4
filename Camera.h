@@ -15,6 +15,10 @@ class Camera
 
       void SetUpGLMatrices() const;
 
+      float GetElevation();
+      float GetHeading();
+      float GetRadius();
+
    private:
       float theta, phi, radius;
 

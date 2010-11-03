@@ -62,6 +62,31 @@ void Light::SetLocationRectangular(
    position[2] = z;
 }
 
+float Light::GetRadius()
+{
+   return sqrt( pow( position[0], 2 ) +
+                pow( position[1], 2 ) +
+                pow( position[2], 2 ) );
+}
+
+float Light::GetElevation()
+{
+   return 90 - acos( position[2] / GetRadius() ) * TO_DEG;
+}
+
+float Light::GetHeading()
+{
+   return atan2( position[1], position[0] ) * TO_DEG;
+}
+
+GLPoint Light::GetLocation()
+{
+   GLPoint p = { position[0],
+                 position[1],
+                 position[2] };
+   return p;
+}
+
 void Light::Disable()
 {
    on = false;

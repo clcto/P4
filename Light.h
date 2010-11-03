@@ -24,6 +24,12 @@ class Light
       void SetLocationRectangular(
          GLfloat x, GLfloat y, GLfloat z );
       
+      float GetElevation();
+      float GetHeading();
+      float GetRadius();
+
+      GLPoint GetLocation();
+
       void Disable();
       void Enable();
 

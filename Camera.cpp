@@ -61,3 +61,18 @@ void Camera::SetEyeSpherical( float t, float p,
    phi = p;
    radius = r;
 }
+
+float Camera::GetElevation()
+{
+   return theta;
+}
+
+float Camera::GetHeading()
+{
+   return phi;
+}
+
+float Camera::GetRadius()
+{
+   return radius;
+}

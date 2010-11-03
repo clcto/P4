@@ -159,7 +159,6 @@ void Scene::SetSelected( const uint& index )
 
       selectedIndex = index;
       selected = true;
-      Control::Instance()->SelectionChanged( index );
 
       shapes[ selectedIndex ]->HighlightOn();
    }
