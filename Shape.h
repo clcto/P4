@@ -17,6 +17,7 @@
 
 #include "Color.h"
 #include "GLPoint.h"
+#include "Material.h"
 
 using std::string;
 
@@ -44,11 +45,9 @@ class Shape
 
       GLScale GetScale() const;
 
-         // set the color of the shape
-      virtual void SetColor( float r, float g, float b );
-      virtual void SetColor( Color ct );
+      void SetMaterial( Material m );
+      Material GetMaterial() const;
 
-      Color GetColor() const;
          
          // sets the rotation of the object
       void SetRotation( GLfloat, GLVector );
@@ -68,13 +67,6 @@ class Shape
    protected: // --------------------------------------
       static const float pi = 3.141593;
 
-         // modify the CT for transformations in 2D
-      static void initCT();
-      static void scale2D( GLdouble sx, GLdouble sy );
-      static void translate2D( GLdouble dx,
-                               GLdouble dy );
-      static void rotate2D( GLdouble angle );
-
          // sets up the transform matrix so the draw
          // will occur with the proper transforms 
       void beginTransform();
@@ -90,8 +82,7 @@ class Shape
       GLfloat angle;
       GLVector rotate;
 
-         // color of the shape, RGB
-      Color color;
+      Material material;
 
       GLUquadric* quadric;
 

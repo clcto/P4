@@ -12,8 +12,7 @@ class Snowman : public Shape
    public:
       Snowman( string n = "" );
 
-      void SetColor( GLfloat, GLfloat, GLfloat );
-      void SetColor( Color );
+      void SetMaterial( Material );
       void Redraw();
       void HighlightOn();
       void HighlightOff();

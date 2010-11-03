@@ -203,12 +203,16 @@ void Control::LoadValues()
    cam_elevation->set_float_val(
       s->GetCamera().GetElevation() ); 
 
+   dir_enable->set_int_val(
+      s->GetDirectionalLight()->IsOn() );
    dir_heading->set_float_val(
       s->GetDirectionalLight()->GetHeading() );
    dir_elevation->set_float_val(
       s->GetDirectionalLight()->GetElevation() );
 
    GLPoint p = s->GetPointLight()->GetLocation();
+   pnt_enable->set_int_val(
+      s->GetPointLight()->IsOn() );
    pnt_x->set_float_val( p.x );
    pnt_y->set_float_val( p.y );
    pnt_z->set_float_val( p.z );

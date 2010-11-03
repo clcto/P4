@@ -14,9 +14,7 @@ void Cylinder::Redraw()
 {
    Shape::beginTransform();
 
-   GLfloat am_diff[4] = {0.9, 0.9, 0.9, 1};
-   glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,
-                 am_diff );
+   material.GLInit();
 
    if( highlight )
    {
@@ -28,8 +26,6 @@ void Cylinder::Redraw()
       GLfloat emit[4] = {0, 0, 0, 1};
       glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, emit );
    }
-
-   glColor3f( color.red, color.green, color.blue );
 
    gluCylinder( quadric, 1, 1, 1, 50, 50 );
 

@@ -27,9 +27,7 @@ Shape::Shape( string n ) : name( n )
 
    angle = 0;
 
-   color.red   = 1.0;
-   color.green = 0.5;
-   color.blue  = 0.0;
+   material = Material::BRASS;
 
    quadric = gluNewQuadric();
 
@@ -63,24 +61,11 @@ void Shape::SetScale( GLfloat xs, GLfloat ys,
    scale.z = zs;
 }
 
-   // -----------------------------------------------------
-   // Shape::SetColor
-   // set the color of the shape
-   //
-   // r, g, b: the red, green and blue values of the new
-   //          color
-void Shape::SetColor( float r, float g, float b )
-{
-   color.red   = r;
-   color.green = g;
-   color.blue  = b;
-}
 
-void Shape::SetColor( Color ct )
+void Shape::SetMaterial( Material m )
 {
-   color = ct;
+   material = m;
 }
-
    
    // -----------------------------------------------------
    // set the matrix for the transform
@@ -152,8 +137,7 @@ GLVector Shape::GetRotationVector() const
    return rotate;
 }
 
-Color Shape::GetColor() const
+Material Shape::GetMaterial() const
 {
-   return color;
+   return material;
 }
-

@@ -87,6 +87,11 @@ GLPoint Light::GetLocation()
    return p;
 }
 
+bool Light::IsOn()
+{
+   return on;
+}
+
 void Light::Disable()
 {
    on = false;

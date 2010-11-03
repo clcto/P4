@@ -110,33 +110,28 @@ void Scene::LoadDefault()
    Cone *cone = new Cone( "cone" );
    cone->SetScale( 0.5, 0.5, 0.5 );
    cone->SetTranslation( -2, -2, 4 );
-   cone->SetColor( 0, 0, 1 );
    AddShape( cone );
 
    Disk *d = new Disk( "disk" );
    d->SetScale( 1.2, 2.1, 1 );
    d->SetTranslation( 1, 0, -1 );
    d->SetRotation( 60, 1, 1, 1 );
-   d->SetColor( 1, 0, 1 );
    AddShape( d );
 
    Sphere *sp = new Sphere( "Sphere" );
    sp->SetScale( -2, 1.1, 0.3 );
    sp->SetTranslation( 5, 0, -2 );
-   sp->SetColor( 0.5, 1, 0 );
    AddShape( sp );
    
    Cylinder *c = new Cylinder( "Cylinder" );
    c->SetScale( 2, 2, 3 );
    c->SetTranslation( 3, 3, 8 );
    c->SetRotation( 90, 1, 0, 0 );
-   c->SetColor( 0, 1, 0.5 );
    AddShape( c );
 
    s = new Snowman( "Snowman_2" );
    s->SetScale( 1.3, 1.8, 2 );
    s->SetTranslation( -5, -5, -5 );
-   s->SetColor( 0.5, 0, 1 );
    AddShape( s );
 
    GLVector v = { 1, 0, 0 };

@@ -14,9 +14,7 @@ void Sphere::Redraw()
 {
    Shape::beginTransform();
 
-   GLfloat am_diff[4] = {0.9, 0.9, 0.9, 1};
-   glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,
-                 am_diff );
+   material.GLInit();
 
    if( highlight )
    {
@@ -29,8 +27,6 @@ void Sphere::Redraw()
       glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, emit );
    }
 
-   glColor3f( color.red, color.green, color.blue );
-   
    gluSphere( quadric, 1, 50, 50 );
 
    Shape::endTransform();

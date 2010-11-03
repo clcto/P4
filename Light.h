@@ -30,6 +30,8 @@ class Light
 
       GLPoint GetLocation();
 
+      bool IsOn();
+
       void Disable();
       void Enable();
 
