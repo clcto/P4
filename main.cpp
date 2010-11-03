@@ -85,10 +85,7 @@ int main( int argc, char **argv )
 
 	appInit();
 
-   if( argc > 1 )
-      Scene::Instance()->ReadFile( argv[1] );
-   else
-      Scene::Instance()->LoadDefault();
+   Scene::Instance()->LoadDefault();
 
    Control::Instance()->Initialize( "Control", window );
 

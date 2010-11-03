@@ -19,29 +19,16 @@ using namespace std;
    //    sets up default values
 Camera::Camera()
 {
-   mode = Mode_Ortho;
+   radius = 50;
+   theta = 0;
+   phi = 0;
 
-   eye.x = 100; eye.y = 50; eye.z = 50;
    center.x = 0; center.y = 0; center.z = 0;
    up.x = 0; up.y = 0; up.z = 1;
 
-   oRight  = -10;
-   oLeft   = 10;
-   oTop    = 10;
-   oBottom = -10;
-   oNear   = 1;
-   oFar    = 10000;
-
-   fRight  = -4;
-   fLeft   = 4;
-   fTop    = 4;
-   fBottom = -4;
-   fNear   = 50;
-   fFar    = 10000;
-
    pFar = 10000;
    pNear = 1;
-   fov = 10;
+   fov = 30;
    aspect = 1;
 }
 
@@ -51,215 +38,26 @@ Camera::Camera()
 void Camera::SetUpGLMatrices() const
 {
    glMatrixMode( GL_PROJECTION );
-   glLoadIdentity();
-
-   switch( mode )
-   {
-      case Mode_Ortho:
-         glOrtho( oRight, oLeft, oBottom,
-                  oTop, oNear, oFar );
-         break;
-
-      case Mode_Perspective:
-         gluPerspective( fov, aspect, pNear, pFar );
-         break;
-
-      case Mode_Frustum:
-         glFrustum( fRight, fLeft, fBottom, fTop, 
-                    fNear, fFar );
-         break;
-   }
+      glLoadIdentity();
+      gluPerspective( fov, aspect, pNear, pFar );
 
    glMatrixMode( GL_MODELVIEW );
-   glLoadIdentity();
-   gluLookAt( eye.x, eye.y, eye.z,
-              center.x, center.y, center.z,
-              up.x, up.y, up.z );
+      int x = 
+         radius * cos( theta*TO_RAD ) * cos( phi*TO_RAD );
+      int y = 
+         radius * cos( theta*TO_RAD ) * sin( phi*TO_RAD );
+      int z =  
+         radius * sin( theta*TO_RAD );
+
+      gluLookAt( x, y, z,
+                 center.x, center.y, center.z,
+                 up.x, up.y, up.z );
 }
 
-   // Mutators ============================================
-void Camera::SetMode( Mode m )
+void Camera::SetEyeSpherical( float t, float p, 
+                              float r )
 {
-   mode = m;
-}
-
-void Camera::SetEye( GLPoint p )
-{
-   eye = p;
-}
-
-void Camera::SetEyeSpherical( float theta, float phi, 
-                              float radius )
-{
-   eye.x = 
-      radius * cos( theta*TO_RAD ) * cos( phi*TO_RAD );
-   eye.y = 
-      radius * cos( theta*TO_RAD ) * sin( phi*TO_RAD );
-   eye.z =  
-      radius * sin( theta*TO_RAD );
-}
-
-void Camera::SetCenter( GLPoint p )
-{
-   center = p;
-}
-
-void Camera::SetUp( GLVector v )
-{
-   up = v;
-}
-
-void Camera::SetRight( GLdouble r )
-{
-   if( mode == Mode_Ortho )
-      oRight = r;
-   else if( mode == Mode_Frustum )
-      fRight = r;
-}
-
-void Camera::SetLeft( GLdouble l )
-{
-   if( mode == Mode_Ortho )
-      oLeft = l;
-   else if( mode == Mode_Frustum )
-      fLeft = l;
-}
-
-void Camera::SetTop( GLdouble t )
-{
-   if( mode == Mode_Ortho )
-      oTop = t;
-   else if( mode == Mode_Frustum )
-      fTop = t;
-}
-
-void Camera::SetBottom( GLdouble b )
-{
-   if( mode == Mode_Ortho )
-      oBottom = b;
-   else if( mode == Mode_Frustum )
-      fBottom = b;
-}
-
-void Camera::SetNear( GLdouble n )
-{
-   if( mode == Mode_Ortho )
-      oNear = n;
-   else if( mode == Mode_Perspective )
-      pNear = n;
-   else if( mode == Mode_Frustum )
-      fNear = n;
-}
-
-void Camera::SetFar( GLdouble f )
-{
-   if( mode == Mode_Ortho )
-      oFar = f;
-   else if( mode == Mode_Perspective )
-      pFar = f;
-   else if( mode == Mode_Frustum )
-      fFar = f;
-}
-
-void Camera::SetFOV( GLdouble f )
-{
-   fov = f;
-}
-
-void Camera::SetAspectRatio( GLdouble r )
-{
-   aspect = r;
-}
-
-   // Accessors ===========================================
-Camera::Mode Camera::GetMode() const
-{
-   return mode;
-}
-
-GLPoint Camera::GetEye() const
-{
-   return eye;
-}
-
-GLPoint Camera::GetCenter() const
-{
-   return center;
-}
-
-GLVector Camera::GetUp() const
-{
-   return up;
-}
-
-GLdouble Camera::GetRight() const
-{
-   switch( mode )
-   {
-      case Mode_Frustum:   return fRight;
-      case Mode_Ortho:     return oRight;
-      default:             return 0;
-   }
-}
-
-GLdouble Camera::GetLeft() const
-{
-   switch( mode )
-   {
-      case Mode_Frustum:   return fLeft;
-      case Mode_Ortho:     return oLeft;
-      default:             return 0;
-   }
-}
-
-GLdouble Camera::GetTop() const
-{
-   switch( mode )
-   {
-      case Mode_Frustum:   return fTop;
-      case Mode_Ortho:     return oTop;
-      default:             return 0;
-   }
-}
-
-GLdouble Camera::GetBottom() const
-{
-   switch( mode )
-   {
-      case Mode_Frustum:   return fBottom;
-      case Mode_Ortho:     return oBottom;
-      default:             return 0;
-   }
-}
-
-GLdouble Camera::GetNear() const
-{
-   switch( mode )
-   {
-      case Mode_Frustum:     return fNear;
-      case Mode_Ortho:       return oNear;
-      case Mode_Perspective: return pNear;
-      default:               return 0;
-   }
-}
-
-GLdouble Camera::GetFar() const
-{
-   switch( mode )
-   {
-      case Mode_Frustum:     return fFar;
-      case Mode_Ortho:       return oFar;
-      case Mode_Perspective: return pFar;
-      default:               return 0;
-   }
-}
-
-GLdouble Camera::GetFOV() const
-{
-   return fov;
-}
-
-GLdouble Camera::GetAspectRatio() const
-{
-   return aspect;
+   theta = t;
+   phi = p;
+   radius = r;
 }

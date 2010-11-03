@@ -3,6 +3,7 @@
 
 Light::Light( GLenum l, GLfloat p[] )
 {
+   on = true;
    light = l;
    for( int i = 0; i < 4; ++i )
    {
@@ -30,10 +31,11 @@ void Light::GLInit()
 {
    if( on )
    {
+      glMatrixMode( GL_MODELVIEW );
       glPushMatrix();
       glEnable( light );
       glLightfv( light, GL_POSITION, position );
-      glLightfv( light, GL_AMBIENT, ambient );
+      //glLightfv( light, GL_AMBIENT, ambient );
       glLightfv( light, GL_DIFFUSE, diffuse );
       glPopMatrix();
    }

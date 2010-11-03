@@ -57,7 +57,7 @@ void Control::Initialize( string name, int windowID )
    cam_elevation = glui->add_spinner_to_panel( panel, "Elevation",
       GLUI_SPINNER_FLOAT, NULL,
       Modified_Camera, modified_cb );
-   cam_elevation->set_float_limits( -90, 90 );
+   cam_elevation->set_float_limits( -80, 80 );
    cam_elevation->set_speed( .2 );
 
    panel = glui->add_panel( "Directional Light" );
@@ -246,13 +246,11 @@ void Control::modified( int control )
       
       // used to convert the 3 spinners into
       // one struct for passing to the cam
-   GLPoint p; GLVector v;
 
-   Shape* selected = Scene::Instance()->GetSelected();
+//   Shape* selected = Scene::Instance()->GetSelected();
    switch( control )
    {
       case Modified_Camera:
-         cerr << "Modified_Camera\n";
          cam.SetEyeSpherical(
             cam_elevation->get_float_val(),
             cam_heading->get_float_val(),
@@ -271,145 +269,11 @@ void Control::modified( int control )
             d->Disable();
 
          break;
-
-      case Modified_Eye:
-         p.x = eyeX->get_float_val();
-         p.y = eyeY->get_float_val();
-         p.z = eyeZ->get_float_val();
-         cam.SetEye( p );
-         break;
-      
-      case Modified_Center:
-         p.x = centerX->get_float_val();
-         p.y = centerY->get_float_val();
-         p.z = centerZ->get_float_val();
-         cam.SetCenter( p );
-         break;
-
-      case Modified_Up:
-         v.x = upX->get_float_val();
-         v.y = upY->get_float_val();
-         v.z = upZ->get_float_val();
-         cam.SetUp( v );
-         break; 
-
-      case Modified_OrthoFrustum:
-         cam.SetRight( right->get_float_val() );
-         cam.SetLeft( left->get_float_val() );
-         cam.SetTop( top->get_float_val() );
-         cam.SetBottom( bottom->get_float_val() );
-         cam.SetNear( ofNear->get_float_val() );
-         cam.SetFar( ofFar->get_float_val() );
-         break;
-
-      case Modified_Perspective:
-         cam.SetNear( pNear->get_float_val() );
-         cam.SetFar( pFar->get_float_val() );
-         cam.SetFOV( fov->get_float_val() );
-         cam.SetAspectRatio( aspect->get_float_val() );
-         break;
-
-      case Modified_Selection:
-         Scene::Instance()->SetSelected(
-            (uint) selectionControl->get_int_val() );
-         break;
-
-      case Modified_Translation:
-         selected->SetTranslation(
-            xTransControl->get_float_val(),
-            yTransControl->get_float_val(),
-            zTransControl->get_float_val() );
-         break;
-
-      case Modified_Scale:
-         selected->SetScale(
-            xScaleControl->get_float_val(),
-            yScaleControl->get_float_val(),
-            zScaleControl->get_float_val() );
-         break;
-
-      case Modified_Rotation:
-         GLVector rv;
-         rv.x = rotateVectorX->get_float_val();
-         rv.y = rotateVectorY->get_float_val();
-         rv.z = rotateVectorZ->get_float_val();
-
-         selected->SetRotation( 
-            angleControl->get_float_val(), rv );
-         break;
-
-      case Modified_Color:
-         selected->SetColor(
-            redControl->get_float_val(),
-            greenControl->get_float_val(),
-            blueControl->get_float_val() );           
-         break;
-
-      case Modified_Mode:
-         cam.SetMode( 
-            (Camera::Mode) mode->get_int_val() );
-         
-         LoadValues( Scene::Instance()->GetCamera() );
-         break;
-
-
-      case Modified_Quit:
-         exit(0);
    }
 
       //
       // refresh please
    glutPostRedisplay();
-}
-
-   // -----------------------------------------------------
-   // LoadValues
-   //    loads the camera values into the gui
-void Control::LoadValues( const Camera& c )
-{
-   GLPoint eye = c.GetEye();
-   eyeX->set_float_val( eye.x );
-   eyeY->set_float_val( eye.y );
-   eyeZ->set_float_val( eye.z );
-
-   GLPoint center = c.GetCenter();
-   centerX->set_float_val( center.x );
-   centerY->set_float_val( center.y );
-   centerZ->set_float_val( center.z );
-
-   GLVector up = c.GetUp();
-   upX->set_float_val( up.x );
-   upY->set_float_val( up.y );
-   upZ->set_float_val( up.z );
-
-
-   switch( c.GetMode() )
-   {
-      case Camera::Mode_Ortho:
-      case Camera::Mode_Frustum:
-         right->set_float_val( c.GetRight() );
-         left->set_float_val( c.GetLeft() );
-         bottom->set_float_val( c.GetBottom() );
-         top->set_float_val( c.GetTop() );
-         ofNear->set_float_val( c.GetNear() );
-         ofFar->set_float_val( c.GetFar() );
-
-         perspectivePanel->disable();
-         orthoFrustumPanel->enable();
-         break;
-      case Camera::Mode_Perspective:
-         fov->set_float_val( c.GetFOV() );
-         aspect->set_float_val( c.GetAspectRatio() );
-         pNear->set_float_val( c.GetNear() );
-         pFar->set_float_val( c.GetFar() );
-         
-         orthoFrustumPanel->disable();
-         perspectivePanel->enable();
-         break;
-   }
-
-   mode->set_int_val( c.GetMode() );
-
 }
 
    // -----------------------------------------------------
