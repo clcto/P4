@@ -48,6 +48,7 @@ class Control
       enum ModifiedControl
       {
          Modified_Directional,
+         Modified_Camera,
 
 
          Modified_Eye,
@@ -73,11 +74,18 @@ class Control
          // Controls
       GLUI *glui;
 
+         // Camera properties, spherical
+      GLUI_Spinner *cam_radius,
+                   *cam_heading,
+                   *cam_elevation;
+
+         // Directional Light properties
       GLUI_Spinner *dir_heading,
                    *dir_elevation;
+      GLUI_Checkbox *dir_enable;
 
-      GLUI_Checkbox *dir_enable,
-                    *pnt_enable;
+        // Point light properties 
+      GLUI_Checkbox *pnt_enable;
 
 
 

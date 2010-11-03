@@ -7,6 +7,8 @@
 
 
 #include "Camera.h"
+#include "radians.h"
+
 #include <GL/glut.h>
 #include <iostream>
 
@@ -84,6 +86,17 @@ void Camera::SetMode( Mode m )
 void Camera::SetEye( GLPoint p )
 {
    eye = p;
+}
+
+void Camera::SetEyeSpherical( float theta, float phi, 
+                              float radius )
+{
+   eye.x = 
+      radius * cos( theta*TO_RAD ) * cos( phi*TO_RAD );
+   eye.y = 
+      radius * cos( theta*TO_RAD ) * sin( phi*TO_RAD );
+   eye.z =  
+      radius * sin( theta*TO_RAD );
 }
 
 void Camera::SetCenter( GLPoint p )

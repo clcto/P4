@@ -11,6 +11,8 @@ class Camera
       Camera();
 
       void SetEye( GLPoint );
+      void SetEyeSpherical( float theta, float phi,
+                                 float radius = 1 );
       void SetCenter( GLPoint );
       void SetUp( GLVector );
 

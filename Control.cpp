@@ -40,7 +40,27 @@ void Control::Initialize( string name, int windowID )
    if( windowID >= 0 )
       glui->set_main_gfx_window( windowID );
    
-   GLUI_Panel* panel = glui->add_panel( "Directional Light" );
+   GLUI_Panel* panel = glui->add_panel( "Camera Location" );
+
+   cam_radius = glui->add_spinner_to_panel( panel, "Radius",
+      GLUI_SPINNER_FLOAT, NULL, 
+      Modified_Camera, modified_cb );
+   cam_radius->set_float_limits( 10, 200 );
+   cam_radius->set_speed( .1 );
+
+   cam_heading = glui->add_spinner_to_panel( panel, "Heading", 
+      GLUI_SPINNER_FLOAT, NULL, 
+      Modified_Camera, modified_cb );
+   cam_heading->set_float_limits( 0, 360 );
+   cam_heading->set_speed( .2 );
+
+   cam_elevation = glui->add_spinner_to_panel( panel, "Elevation",
+      GLUI_SPINNER_FLOAT, NULL,
+      Modified_Camera, modified_cb );
+   cam_elevation->set_float_limits( -90, 90 );
+   cam_elevation->set_speed( .2 );
+
+   panel = glui->add_panel( "Directional Light" );
 
    dir_enable = glui->add_checkbox_to_panel(
       panel, "Enable", NULL, Modified_Directional,
@@ -231,6 +251,14 @@ void Control::modified( int control )
    Shape* selected = Scene::Instance()->GetSelected();
    switch( control )
    {
+      case Modified_Camera:
+         cerr << "Modified_Camera\n";
+         cam.SetEyeSpherical(
+            cam_elevation->get_float_val(),
+            cam_heading->get_float_val(),
+            cam_radius->get_float_val() );
+         break;
+            
       case Modified_Directional:
          d = Scene::Instance()->GetDirectionalLight();
          d->SetLocationSpherical(

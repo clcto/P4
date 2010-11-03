@@ -1,8 +1,5 @@
 #include "Light.h"
-#include <cmath>
-
-#define PI (3.14159265)
-#define TO_RAD (PI/180)
+#include "radians.h"
 
 Light::Light( GLenum l, GLfloat p[] )
 {
