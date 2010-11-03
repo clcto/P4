@@ -23,9 +23,14 @@ class Light
 
       void SetLocationRectangular(
          GLfloat x, GLfloat y, GLfloat z );
+      
+      void Disable();
+      void Enable();
 
    protected:
       GLenum light;
       GLfloat position[4];
-      GLfloat ambient[4], diffusion[4], specular[4];
+      GLfloat ambient[4], diffuse[4], specular[4];
+
+      bool on;
 };

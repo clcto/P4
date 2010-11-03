@@ -11,7 +11,7 @@ Light::Light( GLenum l, GLfloat p[] )
    {
       position[i]  = p[i];
       ambient[i]   = 1;
-      diffusion[i] = 1;
+      diffuse[i] = 1;
       specular[i]  = 1;
    }
 }
@@ -24,18 +24,20 @@ Light::Light( GLenum l, GLfloat p[], GLfloat a[],
    {
       position[i]  = p[i];
       ambient[i]   = a[i];
-      diffusion[i] = d[i];
+      diffuse[i] = d[i];
       specular[i]  = s[i];
    }
 }
 
 void Light::GLInit()
 {
-   if( 1 )
+   if( on )
    {
       glPushMatrix();
       glEnable( light );
       glLightfv( light, GL_POSITION, position );
+      glLightfv( light, GL_AMBIENT, ambient );
+      glLightfv( light, GL_DIFFUSE, diffuse );
       glPopMatrix();
    }
    else
@@ -59,4 +61,14 @@ void Light::SetLocationRectangular(
    position[0] = x;
    position[1] = y;
    position[2] = z;
+}
+
+void Light::Disable()
+{
+   on = false;
+}
+
+void Light::Enable()
+{
+   on = true;
 }

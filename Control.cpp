@@ -33,9 +33,32 @@ Control* Control::Instance()
    //    controls and the setting their values
 void Control::Initialize( string name, int windowID )
 {
+      // create the main window
    glui = GLUI_Master.create_glui( name.c_str() );
-   
 
+      // link it to the graphics window
+   if( windowID >= 0 )
+      glui->set_main_gfx_window( windowID );
+   
+   GLUI_Panel* panel = glui->add_panel( "Directional Light" );
+
+   dir_enable = glui->add_checkbox_to_panel(
+      panel, "Enable", NULL, Modified_Directional,
+      modified_cb );
+
+   dir_heading = glui->add_spinner_to_panel( panel, "Heading", 
+      GLUI_SPINNER_FLOAT, NULL, 
+      Modified_Directional, modified_cb );
+   dir_heading->set_float_limits( 0, 360 );
+   dir_heading->set_speed( .2 );
+
+   dir_elevation = glui->add_spinner_to_panel( panel, "Elevation",
+      GLUI_SPINNER_FLOAT, NULL,
+      Modified_Directional, modified_cb );
+   dir_elevation->set_float_limits( -90, 90 );
+   dir_elevation->set_speed( .2 );
+
+#if 0
    lookAtPanel = glui->add_panel( "glLookAt" );
 
       eyeX = new GLUI_Spinner(
@@ -176,10 +199,9 @@ void Control::Initialize( string name, int windowID )
 
    LoadValues( Scene::Instance()->GetCamera() );
 
-   if( windowID >= 0 )
-      glui->set_main_gfx_window( windowID );
 
    Scene::Instance()->SetSelected( 0 );
+#endif
 }
 
    // -----------------------------------------------------
@@ -200,6 +222,7 @@ void Control::modified_cb( int control )
 void Control::modified( int control )
 {
    Camera &cam = Scene::Instance()->GetCamera();
+   Light *d;
       
       // used to convert the 3 spinners into
       // one struct for passing to the cam
@@ -208,6 +231,19 @@ void Control::modified( int control )
    Shape* selected = Scene::Instance()->GetSelected();
    switch( control )
    {
+      case Modified_Directional:
+         d = Scene::Instance()->GetDirectionalLight();
+         d->SetLocationSpherical(
+            dir_elevation->get_float_val(),
+            dir_heading->get_float_val() );
+         
+         if( dir_enable->get_int_val() )
+            d->Enable();
+         else
+            d->Disable();
+
+         break;
+
       case Modified_Eye:
          p.x = eyeX->get_float_val();
          p.y = eyeY->get_float_val();

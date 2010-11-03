@@ -47,7 +47,6 @@ void appInit(void)
    glEnable( GL_COLOR_MATERIAL );
    glEnable( GL_LIGHT0 );
 
-   
    glShadeModel( GL_SMOOTH );
 
       // background color: white

@@ -47,6 +47,9 @@ class Control
          // enum determining which value changed
       enum ModifiedControl
       {
+         Modified_Directional,
+
+
          Modified_Eye,
          Modified_Center,
          Modified_Up,
@@ -69,6 +72,15 @@ class Control
 
          // Controls
       GLUI *glui;
+
+      GLUI_Spinner *dir_heading,
+                   *dir_elevation;
+
+      GLUI_Checkbox *dir_enable,
+                    *pnt_enable;
+
+
+
 
       GLUI_Panel * lookAtPanel;
       GLUI_Panel * orthoFrustumPanel;

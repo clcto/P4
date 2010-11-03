@@ -46,8 +46,12 @@ Scene::Scene()
 {
    selected = false;
 
-   GLfloat pos[4] = { 1, 0, 0, 0 };
-   directionalLight = new Light( GL_LIGHT0, pos );
+   GLfloat dir_pos[4] = { 1, 0, 0, 0 };
+   directionalLight = new Light( GL_LIGHT0, dir_pos );
+   directionalLight->Disable();
+
+   GLfloat pnt_pos[4] = { 5, 0, 0, 1 };
+   pointLight = new Light( GL_LIGHT1, pnt_pos );
 }
 
 Scene::~Scene()
@@ -59,6 +63,7 @@ Scene::~Scene()
    }
 
    delete directionalLight;
+   delete pointLight;
 
 }
 
@@ -69,8 +74,11 @@ void Scene::Redraw()
 {
    GLfloat ambient[] = { 0.4, 0.4, 0.4, 1 };
    glLightModelfv( GL_LIGHT_MODEL_AMBIENT, ambient );
-   directionalLight->GLInit();
+
    camera.SetUpGLMatrices();
+
+   directionalLight->GLInit();
+   pointLight->GLInit();
 
    vector<Shape*>::iterator it;
    
@@ -194,6 +202,16 @@ vector<string> Scene::GetNames()
       names.push_back( (*it)->GetName() );
 
    return names;
+}
+
+Light* Scene::GetDirectionalLight()
+{
+   return directionalLight;
+}
+
+Light* Scene::GetPointLight()
+{
+   return pointLight;
 }
 
    // reads command from a file to create a scene

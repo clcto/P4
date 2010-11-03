@@ -34,6 +34,9 @@ class Scene
       void ReadFile( string );
       bool Save( string );
 
+      Light* GetDirectionalLight();
+      Light* GetPointLight();
+
       ~Scene();
 
    private:
@@ -62,6 +65,7 @@ class Scene
       static Scene* instance;
 
       Light* directionalLight;
+      Light* pointLight;
 };
 
 vector<string> tokenize( const string& input,
