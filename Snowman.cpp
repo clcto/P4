@@ -21,18 +21,23 @@ Snowman::Snowman( string n ) : Shape( n )
 
    hatBottom.SetScale( 0.6, 0.6, 0.1 );
    hatBottom.SetTranslation( 0, 0, 1.65 );
+   hatBottom.SetMaterial( Material::BLACK_PLASTIC );
 
    hatTop.SetScale( 0.47, 0.47, 0.4 );
    hatTop.SetTranslation( 0, 0, 1.75 );
+   hatTop.SetMaterial( Material::BLACK_PLASTIC );
 
    hatLow.SetScale( 0.6, 0.6, 1 );
    hatLow.SetTranslation( 0, 0, 1.65 );
+   hatLow.SetMaterial( Material::BLACK_PLASTIC );
 
-   hatLow.SetScale( 0.6, 0.6, 1 );
-   hatLow.SetTranslation( 0, 0, 1.75 );
+   hatMid.SetScale( 0.6, 0.6, 1 );
+   hatMid.SetTranslation( 0, 0, 1.75 );
+   hatMid.SetMaterial( Material::BLACK_PLASTIC );
 
    hatHigh.SetScale( 0.47, 0.47, 1 );
    hatHigh.SetTranslation( 0, 0, 2.15 );
+   hatHigh.SetMaterial( Material::BLACK_PLASTIC );
 }
 
    // draw the snowman to the screen

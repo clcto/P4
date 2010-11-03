@@ -9,11 +9,13 @@ class Material
                 float = 0, float = 0, float = 0,
                 float = 0, float = 0, float = 0,
                 float = 0 );
-      Material( Color, Color, Color, float );
 
       void GLInit() const;
 
-      static const Material BRASS;
+      static const Material BRASS,
+                            MATTE_RED,
+                            CHROME,
+                            BLACK_PLASTIC;
       
    private:
       Color ambient, diffuse, specular, exponent;

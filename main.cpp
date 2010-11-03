@@ -44,7 +44,7 @@ void appInit(void)
    glEnable( GL_DEPTH_TEST );
 
    glEnable( GL_LIGHTING );
-   glEnable( GL_COLOR_MATERIAL );
+   //glEnable( GL_COLOR_MATERIAL );
    glEnable( GL_LIGHT0 );
 
    glShadeModel( GL_SMOOTH );

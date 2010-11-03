@@ -383,7 +383,7 @@ void Control::createPoint()
    pnt_y->set_float_limits( -300, 300 );
    pnt_y->set_speed( .2 );
 
-   pnt_z = glui->add_spinner_to_panel( panel, "y",
+   pnt_z = glui->add_spinner_to_panel( panel, "z",
       GLUI_SPINNER_FLOAT, NULL,
       Modified_Point, modified_cb );
    pnt_z->set_float_limits( -300, 300 );

@@ -104,9 +104,10 @@ void Scene::LoadDefault()
 {
    Shape *s = new Snowman( "Snowman_1" );
    s->SetScale( 2, 2, 2 );
-   s->SetTranslation( 10, 10, 0 );
+   s->SetMaterial( Material::CHROME );
    AddShape( s );
 
+/*
    Cone *cone = new Cone( "cone" );
    cone->SetScale( 0.5, 0.5, 0.5 );
    cone->SetTranslation( -2, -2, 4 );
@@ -137,7 +138,7 @@ void Scene::LoadDefault()
    GLVector v = { 1, 0, 0 };
 
    cone->SetRotation( 90, v );
-
+*/
 
    
 }

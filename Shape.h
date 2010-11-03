@@ -45,7 +45,7 @@ class Shape
 
       GLScale GetScale() const;
 
-      void SetMaterial( Material m );
+      virtual void SetMaterial( Material m );
       Material GetMaterial() const;
 
          
