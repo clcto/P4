@@ -1,22 +1,30 @@
 // --------------------------------------------------------
-// Disk
-//    wrapper for the gluDisk
+// Square
+//    wrapper for the gluSquare
 //
 // Carick Wienke
 
-#include "Disk.h"
+#include "Square.h"
 
-Disk::Disk( string n ) : Shape( n )
+Square::Square( string n ) : Shape( n )
 {
 }
 
-void Disk::Redraw()
+void Square::Redraw()
 {
    Shape::beginTransform();
 
    material.GLInit();
 
-   gluDisk( quadric, 0, 1, 50, 5 );
+   glBegin( GL_POLYGON );
+      glEnable( GL_NORMALIZE );
+      glNormal3f( 0, 0, 1 );
+      glVertex3f( -1, -1, 0 );
+      glVertex3f( -1, 1, 0 );
+      glVertex3f( 1, 1, 0 );
+      glVertex3f( 1, -1, 0 );
+      glDisable( GL_NORMALIZE );
+   glEnd();
 
    if( highlight )
    {

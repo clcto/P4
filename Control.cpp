@@ -43,9 +43,12 @@ void Control::Initialize( string name, int windowID )
    createCamera();
    createDirectional();
    createPoint();
+   
+   createSelection();
 
    Control::LoadValues();
 
+   Scene::Instance()->SetSelected( 0 );
 #if 0
    lookAtPanel = glui->add_panel( "glLookAt" );
 
@@ -168,16 +171,7 @@ void Control::Initialize( string name, int windowID )
 
    GLUI_Panel *panel;
 
-   panel = glui->add_panel( "Selection" );
 
-   selectionControl = glui->add_listbox_to_panel(
-      panel, "Name", NULL, Modified_Selection,
-      modified_cb );
-
-   vector<string> names = Scene::Instance()->GetNames();
-
-   for( uint i = 0; i < names.size(); ++i )
-      selectionControl->add_item( i, names[i].c_str() );
 
    createTransformations();
    createColor();
@@ -188,7 +182,6 @@ void Control::Initialize( string name, int windowID )
    LoadValues( Scene::Instance()->GetCamera() );
 
 
-   Scene::Instance()->SetSelected( 0 );
 #endif
 }
 
@@ -284,6 +277,33 @@ void Control::modified( int control )
             l->Enable();
          else
             l->Disable();
+         break;
+
+      case Modified_Selection:
+         Scene::Instance()->SetSelected(
+            (uint) selectionControl->get_int_val() );
+         break;
+
+      case Modified_Material:
+         switch( materials->get_int_val() )
+         {
+            case Material_Brass:
+               Scene::Instance()->GetSelected()->
+                         SetMaterial( Material::BRASS );
+               break;
+            case Material_MatteRed:
+               Scene::Instance()->GetSelected()->
+                         SetMaterial( Material::MATTE_RED );
+               break;
+            case Material_Chrome:
+               Scene::Instance()->GetSelected()->
+                         SetMaterial( Material::CHROME );
+               break;
+            case Material_BlackPlastic:
+               Scene::Instance()->GetSelected()->
+                         SetMaterial( Material::BLACK_PLASTIC );
+               break;
+         }
          break;
    }
 
@@ -406,4 +426,31 @@ void Control::createPoint()
       Modified_Point, modified_cb );
    blueControl->set_float_limits( 0, 1 );
    blueControl->set_speed( 1 );
+}
+
+void Control::createSelection()
+{
+   GLUI_Panel* panel = glui->add_panel( "Selection" );
+
+   selectionControl = glui->add_listbox_to_panel(
+      panel, "Name", NULL, Modified_Selection,
+      modified_cb );
+
+   vector<string> names = Scene::Instance()->GetNames();
+
+   for( uint i = 0; i < names.size(); ++i )
+      selectionControl->add_item( i, names[i].c_str() );
+
+   materials = glui->add_radiogroup_to_panel(
+      panel, NULL, Modified_Material, modified_cb );
+
+   glui->add_radiobutton_to_group( materials, 
+      "Brass (Shiny)" );
+   glui->add_radiobutton_to_group( materials,
+      "Matte Red (Dull)" );
+   glui->add_radiobutton_to_group( materials,
+      "Chrome" );
+   glui->add_radiobutton_to_group( materials,
+      "Black Plastic" );
+
 }

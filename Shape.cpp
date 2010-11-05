@@ -10,6 +10,8 @@
 
 #include "Shape.h"
 
+#include <iostream>
+
 // ======== Public Methods/Constructors ===================
 
    // -----------------------------------------------------

@@ -22,7 +22,9 @@
 #include "Cylinder.h"
 #include "Cone.h"
 #include "Sphere.h"
+#include "Square.h"
 #include "Snowman.h"
+#include "Disk.h"
 
 using std::ifstream;
 using std::cerr;
@@ -104,43 +106,51 @@ void Scene::LoadDefault()
 {
    Shape *s = new Snowman( "Snowman_1" );
    s->SetScale( 2, 2, 2 );
+   s->SetRotation( 30, 1, 1, 1 );
    s->SetMaterial( Material::CHROME );
    AddShape( s );
 
-/*
+   Sphere *sp = new Sphere( "Sphere" );
+   sp->SetScale( 3, 3, 3 );
+   sp->SetTranslation( 5, -2, -2 );
+   sp->SetMaterial( Material::MATTE_RED );
+   AddShape( sp );
+
    Cone *cone = new Cone( "cone" );
-   cone->SetScale( 0.5, 0.5, 0.5 );
-   cone->SetTranslation( -2, -2, 4 );
+   cone->SetScale( 3, 3, 4 );
+   cone->SetTranslation( 2, 5, 2 );
+   cone->SetRotation( 90, 1, 0, 0 );
+   cone->SetMaterial( Material::BRASS );
    AddShape( cone );
 
    Disk *d = new Disk( "disk" );
    d->SetScale( 1.2, 2.1, 1 );
-   d->SetTranslation( 1, 0, -1 );
+   d->SetTranslation( -3, -6, 3 );
    d->SetRotation( 60, 1, 1, 1 );
+   d->SetMaterial( Material::CHROME );
    AddShape( d );
 
-   Sphere *sp = new Sphere( "Sphere" );
-   sp->SetScale( -2, 1.1, 0.3 );
-   sp->SetTranslation( 5, 0, -2 );
-   AddShape( sp );
    
    Cylinder *c = new Cylinder( "Cylinder" );
    c->SetScale( 2, 2, 3 );
    c->SetTranslation( 3, 3, 8 );
    c->SetRotation( 90, 1, 0, 0 );
+   c->SetMaterial( Material::BLACK_PLASTIC );
    AddShape( c );
 
    s = new Snowman( "Snowman_2" );
    s->SetScale( 1.3, 1.8, 2 );
-   s->SetTranslation( -5, -5, -5 );
+   s->SetTranslation( -9, -3, -5 );
+   s->SetMaterial( Material::BLACK_PLASTIC );
    AddShape( s );
 
-   GLVector v = { 1, 0, 0 };
+   Square* sq = new Square( "Square" );
+   sq->SetScale( 3, 2, 1 );
+   sq->SetTranslation( 5, 5, -4 );
+   sq->SetRotation( 90, 0, 1, 0 );
+   sq->SetMaterial( Material::MATTE_RED );
+   AddShape( sq );
 
-   cone->SetRotation( 90, v );
-*/
-
-   
 }
 
    // -----------------------------------------------------
@@ -148,6 +158,8 @@ void Scene::LoadDefault()
    //    changes the currently selected shape
 void Scene::SetSelected( const uint& index )
 {
+   std::cerr << "SetSelected( " << index << ")\n";
+   std::cerr << "size: " << shapes.size() << "\n";
    if( index < shapes.size() )
    {
       if( selected )

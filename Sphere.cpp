@@ -16,18 +16,38 @@ void Sphere::Redraw()
 
    material.GLInit();
 
+   gluSphere( quadric, 1, 50, 50 );
+
    if( highlight )
    {
-      GLfloat emit[4] = {0.3, 0.3, 0.3, 1};
-      glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, emit );
-   }
-   else
-   {
-      GLfloat emit[4] = {0, 0, 0, 1};
-      glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, emit );
-   }
+      Material::BLACK_PLASTIC.GLInit();
 
-   gluSphere( quadric, 1, 50, 50 );
+      glBegin( GL_LINE_STRIP );
+         glVertex3f( -1, -1, -1);
+         glVertex3f( -1, -1, +1);
+         glVertex3f( -1, +1, +1);
+         glVertex3f( -1, +1, -1);
+         glVertex3f( -1, -1, -1);
+         glVertex3f( +1, -1, -1);
+         glVertex3f( +1, -1, +1);
+         glVertex3f( -1, -1, +1);
+      glEnd();
+
+      glBegin( GL_LINE_STRIP );
+         glVertex3f( +1, -1, -1);
+         glVertex3f( +1, +1, -1);
+         glVertex3f( +1, +1, +1);
+         glVertex3f( -1, +1, +1);
+         glVertex3f( -1, +1, +1);
+      glEnd();
+
+      glBegin( GL_LINE );
+         glVertex3f( -1, +1, -1);
+         glVertex3f( +1, +1, -1);
+         glVertex3f( +1, -1, +1);
+         glVertex3f( +1, +1, +1);
+      glEnd();
+   }
 
    Shape::endTransform();
 }

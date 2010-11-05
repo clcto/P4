@@ -14,8 +14,8 @@ class Snowman : public Shape
 
       void SetMaterial( Material );
       void Redraw();
-      void HighlightOn();
-      void HighlightOff();
+    //  void HighlightOn();
+    //  void HighlightOff();
       
    protected:
       Sphere bottom, body, head;

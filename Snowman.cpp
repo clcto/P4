@@ -8,6 +8,8 @@
 #include "Snowman.h"
 #include "Disk.h"
 
+#include <iostream>
+
 // Constructor
 //    creates the snowman. moves the shapes and
 //    resizes them so they actually make the snowman
@@ -45,14 +47,45 @@ void Snowman::Redraw()
 {
    Shape::beginTransform();
 
-   bottom.Redraw();
-   body.Redraw();
-   head.Redraw();
    hatBottom.Redraw();
    hatTop.Redraw();
    hatLow.Redraw();
    hatMid.Redraw();
    hatHigh.Redraw();
+   bottom.Redraw();
+   body.Redraw();
+   head.Redraw();
+
+   if( highlight )
+   {
+      Material::BLACK_PLASTIC.GLInit();
+
+      glBegin( GL_LINE_STRIP );
+         glVertex3f( -1.2, -1.2, -2.8 );
+         glVertex3f( -1.2, -1.2, +2.15 );
+         glVertex3f( -1.2, +1.2, +2.15 );
+         glVertex3f( -1.2, +1.2, -2.8 );
+         glVertex3f( -1.2, -1.2, -2.8 );
+         glVertex3f( +1.2, -1.2, -2.8 );
+         glVertex3f( +1.2, -1.2, +2.15 );
+         glVertex3f( -1.2, -1.2, +2.15 );
+      glEnd();
+
+      glBegin( GL_LINE_STRIP );
+         glVertex3f( +1.2, -1.2, -2.8 );
+         glVertex3f( +1.2, +1.2, -2.8 );
+         glVertex3f( +1.2, +1.2, +2.15 );
+         glVertex3f( -1.2, +1.2, +2.15 );
+         glVertex3f( -1.2, +1.2, +2.15 );
+      glEnd();
+
+      glBegin( GL_LINE );
+         glVertex3f( -1.2, +1.2, -2.8 );
+         glVertex3f( +1.2, +1.2, -2.8 );
+         glVertex3f( +1.2, -1.2, +2.15 );
+         glVertex3f( +1.2, +1.2, +2.15 );
+      glEnd();
+   }
 
    Shape::endTransform();
 }
@@ -66,30 +99,4 @@ void Snowman::SetMaterial( Material m )
    bottom.SetMaterial( m );
    body.SetMaterial( m );
    head.SetMaterial( m );
-}
-
-   // highlight each of it's components
-void Snowman::HighlightOn()
-{
-   bottom.HighlightOn();
-   body.HighlightOn();
-   head.HighlightOn();
-   hatBottom.HighlightOn();
-   hatTop.HighlightOn();
-   hatLow.HighlightOn();
-   hatMid.HighlightOn();
-   hatHigh.HighlightOn();
-}
-
-   // stop highlighting each of its components
-void Snowman::HighlightOff()
-{
-   bottom.HighlightOff();
-   body.HighlightOff();
-   head.HighlightOff();
-   hatBottom.HighlightOff();
-   hatTop.HighlightOff();
-   hatLow.HighlightOff();
-   hatMid.HighlightOff();
-   hatHigh.HighlightOff();
 }

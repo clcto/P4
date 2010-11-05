@@ -45,6 +45,7 @@ class Control
       void createDirectional();
       void createPoint();
       void createColor();
+      void createSelection();
       
          // enum determining which value changed
       enum ModifiedControl
@@ -52,6 +53,7 @@ class Control
          Modified_Directional,
          Modified_Point,
          Modified_Camera,
+         Modified_Material,
 
 
          Modified_Eye,
@@ -74,6 +76,14 @@ class Control
          Modified_Quit
       };
 
+      enum Materials
+      {
+         Material_Brass = 0,
+         Material_MatteRed,
+         Material_Chrome,
+         Material_BlackPlastic
+      };
+
          // Controls
       GLUI *glui;
 
@@ -92,6 +102,9 @@ class Control
       GLUI_Spinner *pnt_x, *pnt_y, *pnt_z;
 
       GLUI_Listbox *selectionControl;
+
+         // Material Selection
+      GLUI_RadioGroup *materials;
       
       GLUI_Spinner *redControl;
       GLUI_Spinner *greenControl;
