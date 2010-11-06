@@ -158,8 +158,6 @@ void Scene::LoadDefault()
    //    changes the currently selected shape
 void Scene::SetSelected( const uint& index )
 {
-   std::cerr << "SetSelected( " << index << ")\n";
-   std::cerr << "size: " << shapes.size() << "\n";
    if( index < shapes.size() )
    {
       if( selected )
